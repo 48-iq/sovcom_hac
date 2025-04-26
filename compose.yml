@@ -1,0 +1,38 @@
+services:
+  auth:
+    build:
+      context: ./back/auth
+      dockerfile: ./Dockerfile
+    ports:
+      - 0:8080
+    networks:
+      - backend
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    environment:
+      - APP_JWT_SECRET=secret
+      - APP_JWT_ISSUER=issuer
+      - APP_JWT_SUBJECT=subject
+      - APP_JWT_DURATION=2592000
+  main:
+    build:
+      context: ./back/main
+      dockerfile: ./Dockerfile
+    ports:
+      - 0:8080
+    networks:
+      - backend
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8080/actuator/health" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    environment:
+      - APP_JWT_SECRET=secret
+      - APP_JWT_ISSUER=issuer
+      - APP_JWT_SUBJECT=subject
+networks:
+  backend:

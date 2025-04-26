@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: auth
+app:
+  jwt:
+    secret: ${APP_JWT_SECRET} # secret
+    issuer: ${APP_JWT_ISSUER} # issuer
+    subject: ${APP_JWT_SUBJECT} # subject
+    duration: ${APP_JWT_DURATION} # 2592000
+

@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: main
+app:
+  jwt:
+    secret: ${APP_JWT_SECRET} # secret
+    issuer: ${APP_JWT_ISSUER} # issuer
+    subject: ${APP_JWT_SUBJECT} # subject
