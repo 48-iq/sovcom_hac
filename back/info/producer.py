@@ -13,12 +13,10 @@ class Producer:
         self.rabbitmq_host = rabbitmq_host
 
     def extract_text(self, image: np.ndarray) -> str:
-        """Извлекает весь текст одной строкой"""
         results = self.reader.readtext(image, detail=0)
         return ' '.join(results).replace('\n', ' ')
 
     def find_datetime(self, text: str) -> Dict[str, str]:
-        """Ищет время и дату в тексте"""
         time_pattern = r'\b([01]?\d|2[0-3]):([0-5]\d)\b'
         date_pattern = r'\b(0?[1-9]|[12]\d|3[01])\.(0?[1-9]|1[0-2])\.(20\d{2})\b'
 
@@ -31,7 +29,6 @@ class Producer:
         }
 
     def find_partner(self, text: str) -> Optional[str]:
-        """Ищет первый подходящий магазин-партнер"""
         text_lower = text.lower()
         for partner in self.partners:
             if partner.lower() in text_lower:

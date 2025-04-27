@@ -1,6 +1,15 @@
 spring:
   application:
     name: main
+  datasource:
+    url: jdbc:postgresql://postgres:5432/main
+    username: postgres
+    password: pgpassword
+  rabbitmq:
+    host: rabbitmq
+    port: 5672
+    username: rmuser
+    password: rmpassword
 app:
   jwt:
     secret: ${APP_JWT_SECRET} # secret

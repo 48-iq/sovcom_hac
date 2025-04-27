@@ -60,9 +60,8 @@ class ReceiptProcessor:
             ch.basic_nack(delivery_tag=method.delivery_tag, requeue=False)
 
     def start_consuming(self):
-        """Запуск потребителя"""
         connection = pika.BlockingConnection(
-            pika.ConnectionParameters('localhost')
+            pika.ConnectionParameters(host='rabbitmq', port=5672)
         )
         channel = connection.channel()
         channel.queue_declare(queue='receipt-events-topic', durable=True)
@@ -73,7 +72,3 @@ class ReceiptProcessor:
         )
         print("Waiting for messages...")
         channel.start_consuming()
-
-# if __name__ == '__main__':
-#     processor = ReceiptProcessor()
-#     processor.start_consuming()

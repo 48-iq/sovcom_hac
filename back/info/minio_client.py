@@ -18,7 +18,6 @@ class MinIOClient:
         self.default_bucket = os.getenv('MINIO_BUCKET', 'receipts')
 
     def get_file(self, filename: str, bucket: Optional[str] = None) -> Optional[BytesIO]:
-        """Получает файл из MinIO и возвращает как BytesIO"""
         try:
             bucket = bucket or self.default_bucket
             response = self.client.get_object(bucket, filename)
@@ -31,6 +30,5 @@ class MinIOClient:
             return None
 
     def check_bucket_exists(self, bucket: Optional[str] = None) -> bool:
-        """Проверяет существование бакета"""
         bucket = bucket or self.default_bucket
         return self.client.bucket_exists(bucket)

@@ -8,29 +8,11 @@ class OCRProcessor:
     def __init__(self, 
                  languages: list = ['ru', 'en'],
                  storage_client: Optional[MinIOClient] = None):
-        """
-        Args:
-            languages: Список языков для OCR
-            storage_client: Клиент для работы с хранилищем
-        """
         import easyocr
         self.reader = easyocr.Reader(languages)
         self.storage = storage_client
 
     def process_image(self, image_source: Union[str, BytesIO]) -> Optional[Dict]:
-        """
-        Обрабатывает изображение из разных источников
-        
-        Args:
-            image_source: Путь к файлу или BytesIO поток
-        
-        Returns:
-            {
-                "text": распознанный текст,
-                "status": "success"/"error",
-                "source": идентификатор источника
-            }
-        """
         try:
             np_array = np.frombuffer(image_source, dtype=np.uint8)
 
@@ -47,7 +29,6 @@ class OCRProcessor:
             return None
 
     def process_from_storage(self, filename: str) -> Optional[Dict]:
-        """Полный цикл: загрузка из хранилища + обработка"""
         if not self.storage:
             raise ValueError("Storage client not initialized")
         
